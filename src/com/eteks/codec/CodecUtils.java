@@ -6,6 +6,12 @@ import java.util.Set;
 
 public class CodecUtils
 {
+    private CodecUtils()
+    {
+        // This is a utility class, we don't need to instantiate it.
+        throw new AssertionError();
+    }
+    
     public static String getColumnFromString(final String cellAddress)
     {
         StringBuilder sb = new StringBuilder();
