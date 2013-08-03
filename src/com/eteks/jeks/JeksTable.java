@@ -68,7 +68,6 @@ public class JeksTable extends JTable
 {
     private TableCellEditor editor;
     private JeksExpressionParser expressionParser;
-    //private ReferringCellsListener cellsListener;
     private SharedState state;
     private String name;
     private MODE tableMode;

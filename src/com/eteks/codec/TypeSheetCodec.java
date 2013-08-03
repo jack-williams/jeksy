@@ -19,14 +19,14 @@ import com.eteks.jeks.SharedState;
 import com.eteks.parser.CompilationException;
 import com.eteks.parser.CompiledFunction;
 import com.eteks.type.UserType;
-import com.eteks.type.UserType.ParameterInfo;
+import com.eteks.type.UserType.FieldInfo;
 
 public class TypeSheetCodec extends FunctionSheetCodec
 {
     protected MODE sheetMode = MODE.TYPESHEET;
     protected static final ITIER_ONE_HEADERS output = TIER_ONE_HEADERS.OUTPUT;
     protected UserType type;
-    protected ParameterInfo parameterInfo;
+    protected FieldInfo parameterInfo;
     
     private boolean typeDefined = false;
 
@@ -49,7 +49,7 @@ public class TypeSheetCodec extends FunctionSheetCodec
     {
         super(fileName, state);
         type = new UserType(CodecUtils.removeExtension(fileName), model, expressionParser);
-        parameterInfo = type.new ParameterInfo();
+        parameterInfo = type.new FieldInfo();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class TypeSheetCodec extends FunctionSheetCodec
         ((FunctionSheetTableModel) this.model).addDefinition(currentDefinition);
 
         type = new UserType(CodecUtils.removeExtension(fileName), model, expressionParser);
-        parameterInfo = type.new ParameterInfo();
+        parameterInfo = type.new FieldInfo();
         decode(in);
     }
 
@@ -136,7 +136,7 @@ public class TypeSheetCodec extends FunctionSheetCodec
                 if (parameterInfo.getLabel() != null)
                 {
                     type.addParameter(parameterInfo);
-                    parameterInfo = type.new ParameterInfo();
+                    parameterInfo = type.new FieldInfo();
                 }
                 parameterInfo.addLabel(value);
             } else if (columnHeaderMapping.get(CodecUtils
@@ -221,7 +221,7 @@ public class TypeSheetCodec extends FunctionSheetCodec
         {
             /*
              * If the compilation fails do nothing and
-             * procced.
+             * proceed.
              */
         }
         

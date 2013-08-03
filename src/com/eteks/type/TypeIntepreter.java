@@ -54,6 +54,31 @@ public class TypeIntepreter extends JeksInterpreter
        
     }
     
+    private static Object processFunctionResults(final Object binaryOperatorKey,
+                                                 final Object functionResult)
+    {
+        if (binaryOperatorKey.equals(Syntax.OPERATOR_GREATER))
+        {
+            return ((Number) functionResult).intValue() == 1 ? Boolean.TRUE
+                    : Boolean.FALSE;
+        } else if (binaryOperatorKey.equals(Syntax.OPERATOR_GREATER_OR_EQUAL))
+        {
+            return ((Number) functionResult).intValue() == -1 ? Boolean.FALSE
+                    : Boolean.TRUE;
+        } else if (binaryOperatorKey.equals(Syntax.OPERATOR_LESS))
+        {
+            return ((Number) functionResult).intValue() == -1 ? Boolean.TRUE
+                    : Boolean.FALSE;
+        } else if (binaryOperatorKey.equals(Syntax.OPERATOR_LESS_OR_EQUAL))
+        {
+            return ((Number) functionResult).intValue() == 1 ? Boolean.FALSE
+                    : Boolean.TRUE;
+        } else
+        {
+            return functionResult;
+        }
+    }
+    
     @Override
     public Object getLiteralValue(Object literal)
     {
@@ -92,9 +117,7 @@ public class TypeIntepreter extends JeksInterpreter
     {        
         if (!type1.getDefiningType().equals(type2.getDefiningType()))
         {
-            //throw new IllegalArgumentException("Type mis-match:"
-            //        + type1.getDefiningType().getName() + " "
-            //        + type2.getDefiningType().getName());
+            //TODO: Currently the types must be equal, if we add inheritance this should change.
             return false;
         }
         UserType.TypeClass typeClass = getRequiredTypeClass(binaryOperatorKey);
@@ -108,30 +131,5 @@ public class TypeIntepreter extends JeksInterpreter
         Object[] params = new Object[] { type1, type2 };
         Object result = function.computeFunction(this, params);
         return processFunctionResults(binaryOperatorKey, result);
-    }
-    
-    private Object processFunctionResults(final Object binaryOperatorKey,
-                                          final Object functionResult)
-    {
-        if(binaryOperatorKey.equals(Syntax.OPERATOR_GREATER))
-        {
-            return ((Number) functionResult).intValue() == 1 ? Boolean.TRUE : Boolean.FALSE;
-        } 
-        else if(binaryOperatorKey.equals(Syntax.OPERATOR_GREATER_OR_EQUAL))
-        {
-            return ((Number) functionResult).intValue() == -1 ? Boolean.FALSE : Boolean.TRUE;
-        }
-        else if(binaryOperatorKey.equals(Syntax.OPERATOR_LESS))
-        {
-            return ((Number) functionResult).intValue() == -1 ? Boolean.TRUE : Boolean.FALSE;
-        }
-        else if(binaryOperatorKey.equals(Syntax.OPERATOR_LESS_OR_EQUAL))
-        {
-            return ((Number) functionResult).intValue() == 1 ? Boolean.FALSE : Boolean.TRUE;            
-        }
-        else
-        {
-            return functionResult;
-        }
-    }
+    }      
 }

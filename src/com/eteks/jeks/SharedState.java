@@ -1,8 +1,10 @@
 package com.eteks.jeks;
 
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,6 +12,7 @@ import javax.swing.table.TableModel;
 
 import com.eteks.type.UserType;
 
+//TODO: MAKE SINGLETON
 public class SharedState
 {
 
@@ -47,6 +50,7 @@ public class SharedState
         return userTypes.get(name);
     }
 
+    //TODO: MOVE THIS
     public String getTypeConstructor(String expression)
     {
         Pattern p = Pattern.compile("=([a-zA-Z]+)(.*)$");
@@ -66,9 +70,9 @@ public class SharedState
         return null;
     }
 
-    public HashSet<JeksCell> getTypeInstances(String type)
+    public Set<JeksCell> getTypeInstances(String type)
     {
-        return typeInstances.get(type);
+        return Collections.unmodifiableSet(typeInstances.get(type));
     }
 
     public synchronized void addTypeInstanceRef(

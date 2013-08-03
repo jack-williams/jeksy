@@ -11,7 +11,7 @@ import com.eteks.jeks.IllegalCellException;
 import com.eteks.jeks.JeksTableModel;
 import com.eteks.parser.CompiledFunction;
 import com.eteks.type.UserType.ACCESS_MODIFIERS;
-import com.eteks.type.UserType.ParameterInfo;
+import com.eteks.type.UserType.FieldInfo;
 import com.eteks.type.UserType.TypeClass;
 
 public class UserTypeInstance
@@ -32,7 +32,7 @@ public class UserTypeInstance
     {
         Set<String> labels = definition.getLabels();
         this.definition = definition;
-        this.values = new LinkedHashMap();
+        this.values = new LinkedHashMap<String, Object>();
         this.name = name;
         int argsCount = args.length;
         setValues(args, !(definition.getParams().size() == argsCount));
@@ -41,7 +41,7 @@ public class UserTypeInstance
     private void setValues(Object[] args, boolean publicOnly)
     {
         int counter = 0;
-        for (ParameterInfo param : definition.getParams())
+        for (FieldInfo param : definition.getParams())
         {
             if (publicOnly && param.getAccess() == ACCESS_MODIFIERS.PRIVATE)
             {
@@ -110,7 +110,7 @@ public class UserTypeInstance
         {
             StringBuilder sb = new StringBuilder();
             sb.append(definition.getName() + " - ");
-            for (ParameterInfo param : definition.getParams())
+            for (FieldInfo param : definition.getParams())
             {
                 if (param.getAccess() == ACCESS_MODIFIERS.PRIVATE)
                 {

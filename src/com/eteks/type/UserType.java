@@ -2,6 +2,7 @@ package com.eteks.type;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -24,7 +25,7 @@ public class UserType
     private JeksExpressionParser parser; 
 
     // TODO: Encapsulate
-    public LinkedHashMap<String, ParameterInfo> parameters = new LinkedHashMap<String, ParameterInfo>();
+    public LinkedHashMap<String, FieldInfo> parameters = new LinkedHashMap<String, FieldInfo>();
 
     public enum TypeClass
     {
@@ -36,14 +37,14 @@ public class UserType
         PUBLIC, PRIVATE
     }
 
-    public class ParameterInfo
+    public class FieldInfo
     {
         // TODO: Prevent setting the attributes twice.
         private String label;
         private ACCESS_MODIFIERS access = ACCESS_MODIFIERS.PUBLIC;
-        private Object parameterDefault = null;
+        private Object fieldDefault = null;
 
-        public ParameterInfo()
+        public FieldInfo()
         {
         }
 
@@ -70,7 +71,7 @@ public class UserType
 
         public void addDefault(Object def)
         {
-            this.parameterDefault = def;
+            this.fieldDefault = def;
         }
 
         public String getLabel()
@@ -85,7 +86,7 @@ public class UserType
 
         public Object getDefault()
         {
-            return parameterDefault;
+            return fieldDefault;
         }
 
     }
@@ -137,14 +138,14 @@ public class UserType
         return defaults.add(def);
     }
 
-    public void addParameter(ParameterInfo param)
+    public void addParameter(FieldInfo param)
     {
         this.parameters.put(param.label, param);
     }
 
-    public Collection<ParameterInfo> getParams()
+    public Collection<FieldInfo> getParams()
     {
-        return parameters.values();
+        return Collections.unmodifiableCollection(parameters.values());
     }
 
     public boolean implementsTypeClass(final TypeClass typeClass)
@@ -174,7 +175,7 @@ public class UserType
         StringBuilder sb = new StringBuilder();
         sb.append(name + "(");
 
-        for (ParameterInfo param : parameters.values())
+        for (FieldInfo param : parameters.values())
         {
             if (param.getAccess() == ACCESS_MODIFIERS.PUBLIC)
             {
@@ -192,7 +193,7 @@ public class UserType
         StringBuilder sb = new StringBuilder();
         sb.append(name + "_unprotected(");
 
-        for (ParameterInfo param : parameters.values())
+        for (FieldInfo param : parameters.values())
         {
             sb.append(param.getLabel() + ",");
         }
