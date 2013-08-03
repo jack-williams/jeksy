@@ -12,18 +12,15 @@ import javax.swing.table.TableModel;
 
 import com.eteks.type.UserType;
 
-//TODO: MAKE SINGLETON
-public class SharedState
+public enum SharedState
 {
-
+    
+    INSTANCE;    
+    
     private Hashtable<String, TableModel> sharedModels = new Hashtable<String, TableModel>();
     private Hashtable<String, UserType> userTypes = new Hashtable<String, UserType>();
     private Hashtable<String, HashSet<JeksCell>> typeInstances = new Hashtable<String, HashSet<JeksCell>>();
     private Hashtable<TableModel, ReferringCellsListener> typeInstancesListeners = new Hashtable<TableModel, ReferringCellsListener>();
-
-    public SharedState()
-    {
-    }
 
     public void addModel(String name, TableModel model)
     {

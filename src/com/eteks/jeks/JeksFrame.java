@@ -97,7 +97,7 @@ public class JeksFrame extends JFrame
     private JScrollPane scrollPane;
 
     private final static String TITLE_BASE = "Jeksy";
-    private final static SharedState state = new SharedState();
+    private final static SharedState state = SharedState.INSTANCE;
     private static volatile int frameCount = 0;
 
     private String currentDirectory = System.getProperty("user.dir");
