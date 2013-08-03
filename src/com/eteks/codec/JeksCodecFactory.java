@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 
 import javax.swing.JTable;
 
-import org.omg.IOP.CodecFactoryHelper;
-
 import com.eteks.jeks.JeksTable;
 import com.eteks.jeks.SharedState;
 import com.eteks.jeks.JeksTable.MODE;
