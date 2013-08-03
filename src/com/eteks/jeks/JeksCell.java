@@ -22,8 +22,6 @@
  */
 package com.eteks.jeks;
 
-import java.io.Serializable;
-
 /**
  * Cell of a table. This class stores the row and the column of a cell.
  * 
@@ -33,9 +31,9 @@ import java.io.Serializable;
  */
 public class JeksCell
 {
-    private String sheet;
-    private int row;
-    private int column;
+    private final String sheet;
+    private final int row;
+    private final int column;
 
     /**
      * Constructs a cell at coordinates (<code>row</code>,<code>column</code>).
@@ -43,21 +41,23 @@ public class JeksCell
      * @param row
      * @param column
      */
-    public JeksCell(int row, int column)
+    public JeksCell(final int row, final int column)
     {
         this.sheet = null;
         this.row = row;
         this.column = column;
     }
 
-    public JeksCell(String sheet, int row, int column)
+    public JeksCell(final String sheet,
+                    final int row, 
+                    final int column)
     {
         this.sheet = sheet;
         this.row = row;
         this.column = column;
     }
 
-    public final String getSheet()
+    public String getSheet()
     {
         return sheet;
     }
@@ -67,7 +67,7 @@ public class JeksCell
      * 
      * @return The row index.
      */
-    public final int getRow()
+    public int getRow()
     {
         return row;
     }
@@ -77,7 +77,7 @@ public class JeksCell
      * 
      * @return The column index.
      */
-    public final int getColumn()
+    public int getColumn()
     {
         return column;
     }
@@ -90,7 +90,8 @@ public class JeksCell
      *            an object.
      * @return <code>true</code> if this cell and <code>object</code> are equal.
      */
-    public boolean equals(Object object)
+    @Override
+    public boolean equals(final Object object)
     {
         if(object instanceof JeksCell)
         {
@@ -117,17 +118,6 @@ public class JeksCell
         result = prime * result + ((sheet == null) ? 0 : sheet.hashCode());
         return result;
     }
-
-    /**
-     * Returns a hash code for this cell.
-     * 
-     * @return An integer using the column and row of the cell.
-     */
-    /*
-     * public int hashCode () { int sheetcode = sheet == null ? 0 :
-     * sheet.hashCode(); return (row % 0xFFFF) | ((column % 0xFFFF) << 16) |
-     * sheetcode; }
-     */
 
     /**
      * Returns a string representation of this cell (row column).

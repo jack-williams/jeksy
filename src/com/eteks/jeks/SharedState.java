@@ -17,38 +17,38 @@ public enum SharedState
     
     INSTANCE;    
     
-    private Hashtable<String, TableModel> sharedModels = new Hashtable<String, TableModel>();
-    private Hashtable<String, UserType> userTypes = new Hashtable<String, UserType>();
-    private Hashtable<String, HashSet<JeksCell>> typeInstances = new Hashtable<String, HashSet<JeksCell>>();
-    private Hashtable<TableModel, ReferringCellsListener> typeInstancesListeners = new Hashtable<TableModel, ReferringCellsListener>();
+    private final Hashtable<String, TableModel> sharedModels = new Hashtable<String, TableModel>();
+    private final Hashtable<String, UserType> userTypes = new Hashtable<String, UserType>();
+    private final Hashtable<String, HashSet<JeksCell>> typeInstances = new Hashtable<String, HashSet<JeksCell>>();
+    private final Hashtable<TableModel, ReferringCellsListener> typeInstancesListeners = new Hashtable<TableModel, ReferringCellsListener>();
 
-    public void addModel(String name, TableModel model)
+    public void addModel(final String name, final TableModel model)
     {
         sharedModels.put(name, model);
     }
 
-    public TableModel getModel(String name)
+    public TableModel getModel(final String name)
     {
         return sharedModels.get(name);
     }
 
-    public TableModel getModel(JeksCell cell)
+    public TableModel getModel(final JeksCell cell)
     {
         return sharedModels.get(cell.getSheet());
     }
 
-    public void addType(String name, UserType type)
+    public void addType(final String name, final UserType type)
     {
         userTypes.put(name, type);
     }
 
-    public UserType getType(String name)
+    public UserType getType(final String name)
     {
         return userTypes.get(name);
     }
 
     //TODO: MOVE THIS
-    public String getTypeConstructor(String expression)
+    public String getTypeConstructor(final String expression)
     {
         Pattern p = Pattern.compile("=([a-zA-Z]+)(.*)$");
         Matcher matches = p.matcher(expression);
@@ -67,13 +67,14 @@ public enum SharedState
         return null;
     }
 
-    public Set<JeksCell> getTypeInstances(String type)
+    public Set<JeksCell> getTypeInstances(final String type)
     {
         return Collections.unmodifiableSet(typeInstances.get(type));
     }
 
-    public synchronized void addTypeInstanceRef(
-            ReferringCellsListener listener, String type, JeksCell cell)
+    public synchronized void addTypeInstanceRef(final ReferringCellsListener listener,
+                                                final String type, 
+                                                final JeksCell cell)
     {
         if (typeInstances.get(type) == null)
         {
@@ -82,7 +83,7 @@ public enum SharedState
         typeInstances.get(type).add(cell);
     }
 
-    public synchronized void removeTypeInstanceRef(String type, JeksCell cell)
+    public synchronized void removeTypeInstanceRef(final String type, final JeksCell cell)
     {
         if (typeInstances.get(type) != null)
         {
@@ -90,7 +91,7 @@ public enum SharedState
         }
     }
 
-    public synchronized void removeTypeInstance(JeksCell cell)
+    public synchronized void removeTypeInstance(final JeksCell cell)
     {
         Enumeration<String> keys = typeInstances.keys();
         while (keys.hasMoreElements())
