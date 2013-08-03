@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 
 import javax.swing.JTable;
 
+import org.omg.IOP.CodecFactoryHelper;
+
 import com.eteks.jeks.JeksTable;
 import com.eteks.jeks.SharedState;
 import com.eteks.jeks.JeksTable.MODE;
@@ -18,6 +20,12 @@ public class JeksCodecFactory
     private static final String TYPESHEET_MODE_LINE = "#+MODE:TYPESHEET";
     private static final String FUNCTIONSHEET_MODE_LINE = "#+MODE:FUNCTIONSHEET";
 
+    private JeksCodecFactory()
+    {
+        // This is a utility class, we don't need to instantiate it.
+        throw new AssertionError();
+    }
+    
     public static JeksCodec getCodecInstance(final JTable table,
             final SharedState state)
     {
