@@ -1,0 +1,4 @@
+#+TITLE: Jeksy
+
+* Running
+  + Run the command =ant= in the directory with build.xml and the src folder.
