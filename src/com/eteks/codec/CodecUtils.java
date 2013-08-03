@@ -64,11 +64,12 @@ public class CodecUtils
         return filename.substring(0, extensionIndex);
     }
 
-    public static boolean contains(final Class collection, final String value)
+    @SuppressWarnings("unchecked")
+    public static boolean contains(final Class clazz, final String value)
     {
         try
         {
-            Enum.valueOf(collection, value);
+            Enum.valueOf(clazz, value);
             return true;
             // yes
         } catch (IllegalArgumentException ex)
