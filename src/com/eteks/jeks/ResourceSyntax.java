@@ -37,11 +37,11 @@ import java.util.Hashtable;
  */
 public abstract class ResourceSyntax extends AbstractSyntax
 {
-    private Hashtable constants = new Hashtable();
-    private Hashtable unaryOperators = new Hashtable();
-    private Hashtable binaryOperators = new Hashtable();
-    private Hashtable conditionParts = new Hashtable();
-    private Hashtable commonFunctions = new Hashtable();
+    private Hashtable<Object, String> constants = new Hashtable<Object, String>();
+    private Hashtable<Object, String> unaryOperators = new Hashtable<Object, String>();
+    private Hashtable<Object, String> binaryOperators = new Hashtable<Object, String>();
+    private Hashtable<Object, String> conditionParts = new Hashtable<Object, String>();
+    private Hashtable<Object, String> commonFunctions = new Hashtable<Object, String>();
 
     private ResourceBundle resourceBundle;
 
@@ -301,26 +301,26 @@ public abstract class ResourceSyntax extends AbstractSyntax
 
     public String getConstant(Object constantKey)
     {
-        return (String) constants.get(constantKey);
+        return constants.get(constantKey);
     }
 
     public String getUnaryOperator(Object unaryOperatorKey)
     {
-        return (String) unaryOperators.get(unaryOperatorKey);
+        return unaryOperators.get(unaryOperatorKey);
     }
 
     public String getBinaryOperator(Object binaryOperatorKey)
     {
-        return (String) binaryOperators.get(binaryOperatorKey);
+        return binaryOperators.get(binaryOperatorKey);
     }
 
     public String getConditionPart(Object conditionPartKey)
     {
-        return (String) conditionParts.get(conditionPartKey);
+        return conditionParts.get(conditionPartKey);
     }
 
     public String getCommonFunction(Object commonFunctionKey)
     {
-        return (String) commonFunctions.get(commonFunctionKey);
+        return commonFunctions.get(commonFunctionKey);
     }
 }
