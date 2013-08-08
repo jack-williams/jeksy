@@ -94,7 +94,7 @@ public class JeksTableModel extends AbstractTableModel
             throw new ArrayIndexOutOfBoundsException(row);
         if (column >= getColumnCount())
             throw new ArrayIndexOutOfBoundsException(column);
-        return cellValues.get(new JeksCell(row, column));
+        return cellValues.get(new JeksCell(name, row, column));
     }
 
     public boolean isCellEditable(int row, int column)
@@ -110,7 +110,7 @@ public class JeksTableModel extends AbstractTableModel
             throw new ArrayIndexOutOfBoundsException(row);
         if (column >= getColumnCount())
             throw new ArrayIndexOutOfBoundsException(column);
-        JeksCell cell = new JeksCell(row, column);
+        JeksCell cell = new JeksCell(name, row, column);
         if (value == null || "".equals(value))
             cellValues.remove(cell);
         else
