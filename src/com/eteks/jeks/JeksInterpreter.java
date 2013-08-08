@@ -68,7 +68,13 @@ public class JeksInterpreter extends WrapperInterpreter
             throw new IllegalArgumentException();
     }
 
-    private Object getDoubleValue(Object param)
+    /**
+     * If <code>param</code> is null then convert to the Jeks defined NULL value;
+     * @param param
+     * @return <code>param</code> if <code>param</code> was non-null, otherwise
+     *         <code>JeksInterpreter.NULL_VALUE</code>.
+     */
+    private Object convertIfNull(Object param)
     {
         return param == null ? NULL_VALUE : param;
     }
@@ -95,8 +101,8 @@ public class JeksInterpreter extends WrapperInterpreter
         else
             throw new IllegalArgumentException(
                     "Parameter "
-                            + parameter
-                            + " not an instance of Number, String, Character, Boolean or Date");
+                    + parameter + " of type " + parameter.getClass()
+                    + " not an instance of Number, String, Character, Boolean or Date");
     }
 
     public Object getUnaryOperatorValue(Object unaryOperatorKey, Object param)
@@ -106,7 +112,7 @@ public class JeksInterpreter extends WrapperInterpreter
             throw new IllegalArgumentException();
         else
             return super.getUnaryOperatorValue(unaryOperatorKey,
-                    getDoubleValue(param));
+                    convertIfNull(param));
     }
 
     public Object getBinaryOperatorValue(Object binaryOperatorKey,
@@ -120,7 +126,7 @@ public class JeksInterpreter extends WrapperInterpreter
         else
         {
             return super.getBinaryOperatorValue(binaryOperatorKey,
-                    getDoubleValue(param1), getDoubleValue(param2));
+                    convertIfNull(param1), convertIfNull(param2));
         }
     }
 
@@ -131,6 +137,6 @@ public class JeksInterpreter extends WrapperInterpreter
             throw new IllegalArgumentException();
         else
             return super.getCommonFunctionValue(commonFunctionKey,
-                    getDoubleValue(param));
+                    convertIfNull(param));
     }
 }
