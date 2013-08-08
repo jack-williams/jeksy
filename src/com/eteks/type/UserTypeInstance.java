@@ -1,10 +1,12 @@
 package com.eteks.type;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
+import javax.swing.plaf.ListUI;
 import javax.swing.table.TableModel;
 
 import com.eteks.jeks.IllegalCellException;
@@ -15,25 +17,18 @@ import com.eteks.type.UserType.FieldInfo;
 import com.eteks.type.UserType.TypeClass;
 
 public class UserTypeInstance
-{
-    
-    private String name;
-    private UserType definition;
+{    
+    private final UserType definition;
     private LinkedHashMap<String, Object> values;
 
     public static class DefaultParam
     {
-        public DefaultParam()
-        {            
-        }
     }
     
-    public UserTypeInstance(UserType definition, String name, Object[] args)
+    public UserTypeInstance(UserType definition, Object[] args)
     {
-        Set<String> labels = definition.getLabels();
         this.definition = definition;
         this.values = new LinkedHashMap<String, Object>();
-        this.name = name;
         int argsCount = args.length;
         setValues(args, !(definition.getParams().size() == argsCount));
     }
@@ -61,7 +56,7 @@ public class UserTypeInstance
 
     public String getTypeName()
     {
-        return name;
+        return definition.getName();
     }
 
     public Object getValue(String key)
@@ -127,6 +122,8 @@ public class UserTypeInstance
     // same
     // reference.
 
+    /// TODO: Change from recursive to while-loop (Java doesn't support tail call 
+    ///       optimization :(
     public Object deref(String sheet, ArrayList<String> fields)
     {        
         ArrayList<String> copyOfFields = (ArrayList<String>) fields.clone();

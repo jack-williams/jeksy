@@ -157,13 +157,13 @@ public class FunctionNode implements ParameterizedNode
                     String typename = function.getName().substring(0,
                             function.getName().indexOf("_unprotected"));
                     return new UserTypeInstance(
-                            jeksInterpreter.state.getType(typename), typename,
+                            jeksInterpreter.state.getType(typename),
                             functionParameters);
                 } else
                 {
                     return new UserTypeInstance(
                             jeksInterpreter.state.getType(function.getName()),
-                            function.getName(), functionParameters);
+                            functionParameters);
                 }
             }
             throw new IllegalArgumentException(
